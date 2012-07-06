@@ -35,10 +35,18 @@ module.exports = function (uri, cb) {
         stream.writable = false;
         sock.close();
     };
+
+    stream.destroy = function () {
+        stream._ended = true;
+        stream.writable = stream.readable = false;
+        buffer.length = 0
+        sock.close();
+    }
     
     sock.onopen = function () {
         if (typeof cb === 'function') cb();
         ready = true;
+        stream.emit('connect')
         buffer.forEach(function (msg) {
             sock.send(msg);
         });
