@@ -23,7 +23,7 @@ module.exports = function (uri, cb) {
     stream.sock = sock;
     
     stream.write = function (msg) {
-        if (!ready) buffer.push(msg)
+        if (!ready || buffer.length) buffer.push(msg)
         else sock.send(msg)
     };
     stream.end = function (msg) {
@@ -46,11 +46,11 @@ module.exports = function (uri, cb) {
     sock.onopen = function () {
         if (typeof cb === 'function') cb();
         ready = true;
-        stream.emit('connect')
         buffer.forEach(function (msg) {
             sock.send(msg);
         });
         buffer = [];
+        stream.emit('connect')
         if (stream._ended) stream.end();
     };
     sock.onmessage = function (e) {
