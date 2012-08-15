@@ -25,6 +25,7 @@ exports = module.exports = function (opts, cb) {
                 server.emit('log', severity, line);
             };
         }
+        hopts.prefix = hopts.prefix || '/shoe'
         server.installHandlers(httpServer, hopts);
     };
     

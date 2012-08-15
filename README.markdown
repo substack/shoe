@@ -147,7 +147,7 @@ var stream = shoe(uri, cb)
 --------------------------
 
 Return a readable/writable stream from the sockjs path `uri`.
-`uri` may be a full uri or just a path.
+`uri` may be a full uri or just a path. `uri` defaults to '/shoe'
 
 `cb()` will fire when the stream is actually open, but writes will be buffered
 before then.
@@ -179,6 +179,7 @@ on the `sock` object instead. This is a much less spammy default that gets out
 of your way.
 
 If `opts` is a string, use it as the `opts.prefix`.
+`opts.prefix` defaults to `/shoe`.
 
 server events
 =============
