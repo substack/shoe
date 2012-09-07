@@ -136,6 +136,28 @@ Then open up `localhost:9999` in your browser and you should see:
 beep => BOOP
 ```
 
+with express or connect
+-----------------------
+
+you must pass the return value of `app.listen(port)`
+
+``` js
+var shoe = require('shoe');
+
+var express = require('express')
+var app = express()
+
+var sock = shoe(function (stream) { ... });
+
+// *** must pass expcess/connect apps like this:
+sock.install(app.listen(9999), '/dnode');
+```
+
+Then open up `localhost:9999` in your browser and you should see:
+
+
+```
+
 browser methods
 ===============
 
@@ -149,8 +171,10 @@ var stream = shoe(uri, cb)
 Return a readable/writable stream from the sockjs path `uri`.
 `uri` may be a full uri or just a path.
 
-`cb()` will fire when the stream is actually open, but writes will be buffered
-before then.
+`shoe` will emit a `'connect'` event when the connection is actually open,
+(just like in [net](http://nodejs.org/api/net.html#net_net_connect_options_connectionlistener)).
+writes performed before the `'connect'` event will be buffered. passing in `cb` to 
+shoe is a shortcut for `shoe(uri).on('connect', cb)`
 
 server methods
 ==============
