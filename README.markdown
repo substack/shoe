@@ -164,7 +164,7 @@ var stream = shoe(uri, cb)
 --------------------------
 
 Return a readable/writable stream from the sockjs path `uri`.
-`uri` may be a full uri or just a path.
+`uri` may be a full uri or just a path. `uri` defaults to '/shoe'
 
 `shoe` will emit a `'connect'` event when the connection is actually open,
 (just like in [net](http://nodejs.org/api/net.html#net_net_connect_options_connectionlistener)).
@@ -198,6 +198,7 @@ on the `sock` object instead. This is a much less spammy default that gets out
 of your way.
 
 If `opts` is a string, use it as the `opts.prefix`.
+`opts.prefix` defaults to `/shoe`.
 
 server events
 =============

@@ -2,6 +2,11 @@ var Stream = require('stream');
 var sockjs = require('sockjs-client');
 
 module.exports = function (uri, cb) {
+    if('function' == typeof uri) {
+        cb = uri; uri = null;
+    }
+    uri = uri || '/shoe';
+    
     if (/^\/\/[^\/]+\//.test(uri)) {
         uri = window.location.protocol + uri;
     }
