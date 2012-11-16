@@ -32,7 +32,7 @@ var es = require('event-stream');
 
 domready(function () {
     var result = document.getElementById('result');
-    
+
     var stream = shoe('/invert');
     var s = es.mapSync(function (msg) {
         result.appendChild(document.createTextNode(msg));
@@ -57,11 +57,11 @@ var sock = shoe(function (stream) {
     var iv = setInterval(function () {
         stream.write(Math.floor(Math.random() * 2));
     }, 250);
-    
+
     stream.on('end', function () {
         clearInterval(iv);
     });
-    
+
     stream.pipe(process.stdout, { end : false });
 });
 sock.install(server, '/invert');
@@ -96,7 +96,7 @@ var dnode = require('dnode');
 domready(function () {
     var result = document.getElementById('result');
     var stream = shoe('/dnode');
-    
+
     var d = dnode();
     d.on('remote', function (remote) {
         remote.transform('beep', function (s) {
@@ -164,11 +164,11 @@ var stream = shoe(uri, cb)
 --------------------------
 
 Return a readable/writable stream from the sockjs path `uri`.
-`uri` may be a full uri or just a path.
+`uri` may be a full uri or just a path. `uri` defaults to '/shoe'
 
 `shoe` will emit a `'connect'` event when the connection is actually open,
 (just like in [net](http://nodejs.org/api/net.html#net_net_connect_options_connectionlistener)).
-writes performed before the `'connect'` event will be buffered. passing in `cb` to 
+writes performed before the `'connect'` event will be buffered. passing in `cb` to
 shoe is a shortcut for `shoe(uri).on('connect', cb)`
 
 server methods
@@ -198,6 +198,7 @@ on the `sock` object instead. This is a much less spammy default that gets out
 of your way.
 
 If `opts` is a string, use it as the `opts.prefix`.
+`opts.prefix` defaults to `/shoe`.
 
 server events
 =============

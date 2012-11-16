@@ -1,7 +1,12 @@
-var Stream = require('stream');
+var DataChannel = require('data-channel');
 var sockjs = require('sockjs-client');
 
 module.exports = function (uri, cb) {
+    if (typeof uri === "function") {
+        cb = uri
+        uri = null
+    }
+
     if (/^\/\/[^\/]+\//.test(uri)) {
         uri = window.location.protocol + uri;
     }
@@ -11,56 +16,10 @@ module.exports = function (uri, cb) {
             + (/^\//.test(uri) ? uri : '/' + uri)
         ;
     }
-    
-    var stream = new Stream;
-    stream.readable = true;
-    stream.writable = true;
-    
-    var ready = false;
-    var buffer = [];
-    
-    var sock = sockjs(uri);
-    stream.sock = sock;
-    
-    stream.write = function (msg) {
-        if (!ready || buffer.length) buffer.push(msg)
-        else sock.send(msg)
-    };
-    stream.end = function (msg) {
-        if (msg !== undefined) stream.write(msg);
-        if (!ready) {
-            stream._ended = true;
-            return;
-        }
-        stream.writable = false;
-        sock.close();
-    };
 
-    stream.destroy = function () {
-        stream._ended = true;
-        stream.writable = stream.readable = false;
-        buffer.length = 0
-        sock.close();
-    }
-    
-    sock.onopen = function () {
-        if (typeof cb === 'function') cb();
-        ready = true;
-        buffer.forEach(function (msg) {
-            sock.send(msg);
-        });
-        buffer = [];
-        stream.emit('connect')
-        if (stream._ended) stream.end();
-    };
-    sock.onmessage = function (e) {
-        stream.emit('data', e.data);
-    };
-    sock.onclose = function () {
-        stream.emit('end');
-        stream.writable = false;
-        stream.readable = false;
-    };
-    
+    var sock = sockjs(uri || "/shoe");
+    var stream = DataChannel(sock);
+    stream.sock = sock;
+
     return stream;
 };

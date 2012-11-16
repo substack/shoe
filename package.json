@@ -1,32 +1,35 @@
 {
-    "name" : "shoe",
-    "version" : "0.0.8",
-    "description" : "streaming sockjs for node and the browser",
-    "main" : "index.js",
-    "browserify" : "browser.js",
-    "directories" : {
-        "example" : "example"
-    },
-    "dependencies" : {
-        "sockjs" : "git://github.com/substack/sockjs-node.git#npm",
-        "sockjs-client" : "git://github.com/substack/sockjs-client.git#browserify-npm"
-    },
-    "repository" : {
-        "type" : "git",
-        "url" : "git://github.com/substack/shoe.git"
-    },
-    "homepage" : "https://github.com/substack/shoe",
-    "keywords" : [
-        "websocket",
-        "stream",
-        "sock",
-        "browserify"
-    ],
-    "author" : {
-        "name" : "James Halliday",
-        "email" : "mail@substack.net",
-        "url" : "http://substack.net"
-    },
-    "license" : "MIT",
-    "engine" : { "node" : ">=0.6" }
+  "name": "shoe",
+  "version": "0.0.8",
+  "description": "streaming sockjs for node and the browser",
+  "main": "index.js",
+  "browserify": "browser.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "sockjs": "git://github.com/substack/sockjs-node.git#npm",
+    "sockjs-client": "git://github.com/substack/sockjs-client.git#browserify-npm",
+    "data-channel": "~0.1.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/substack/shoe.git"
+  },
+  "homepage": "https://github.com/substack/shoe",
+  "keywords": [
+    "websocket",
+    "stream",
+    "sock",
+    "browserify"
+  ],
+  "author": {
+    "name": "James Halliday",
+    "email": "mail@substack.net",
+    "url": "http://substack.net"
+  },
+  "license": "MIT",
+  "engine": {
+    "node": ">=0.6"
+  }
 }
