@@ -47,11 +47,11 @@ module.exports = function (uri, cb) {
     sock.onopen = function () {
         if (typeof cb === 'function') cb();
         ready = true;
-        buffer.forEach(function (msg) {
-            sock.send(msg);
-        });
+        for (var i = 0; i < buffer.length; i++) {
+            sock.send(buffer[i]);
+        }
         buffer = [];
-        stream.emit('connect')
+        stream.emit('connect');
         if (stream._ended) stream.end();
     };
     
