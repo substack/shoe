@@ -147,6 +147,29 @@ var sock = shoe(function (stream) { ... });
 sock.install(app.listen(9999), '/dnode');
 ```
 
+with reconnect
+--------------
+
+you can use [reconnect](https://github.com/dominictarr/reconnect) just in case your sock ends or gets disconnected.
+
+``` js
+var shoe = require('shoe');
+var reconnect = require('reconnect');
+var es = require('event-stream');
+var result = document.getElementById('result');
+
+var r = reconnect(function (stream) {
+
+  var s = es.mapSync(function (msg) {
+      result.appendChild(document.createTextNode(msg));
+      return String(Number(msg)^1);
+  });
+  s.pipe(stream).pipe(s);
+
+}).connect('/invert')
+
+```
+
 browser methods
 ===============
 
