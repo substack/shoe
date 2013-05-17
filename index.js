@@ -5,7 +5,7 @@ exports = module.exports = function (opts, cb) {
         cb = opts;
         opts = {};
     }
-    var server = sockjs.createServer();
+    var server = sockjs.createServer(opts);
     if (typeof cb === 'function') {
         server.on('connection', cb);
     }
