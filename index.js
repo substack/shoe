@@ -6,8 +6,31 @@ exports = module.exports = function (opts, cb) {
         opts = {};
     }
     var server = sockjs.createServer();
+    var handler = function (stream) {
+        var _didTimeout = stream._session.didTimeout
+        var _didClose = stream._session.didClose
+
+        stream._session.didTimeout = function () {
+            cleanup()
+            _didTimeout.apply(this, arguments)
+        }
+        stream._session.didClose = function () {
+            cleanup()
+            _didClose.apply(this, arguments)
+        }
+
+        cb(stream)
+
+        function cleanup() {
+            if (stream.destroy) {
+                stream.destroy()
+            } else {
+                stream.emit("close")
+            }
+        }
+    }
     if (typeof cb === 'function') {
-        server.on('connection', cb);
+        server.on('connection', handler);
     }
     server.install = function (httpServer, hopts) {
         if (hopts && hopts.listen && !httpServer.listen) {
