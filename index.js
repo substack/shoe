@@ -23,7 +23,7 @@ exports = module.exports = function (opts, cb) {
 
         function cleanup() {
             if (stream.destroy) {
-                stream.destroy()
+                process.nextTick(stream.destroy.bind(stream))
             } else {
                 stream.emit("close")
             }
