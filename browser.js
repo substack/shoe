@@ -1,9 +1,10 @@
 var Stream = require('stream');
 var sockjs = require('sockjs-client');
 var resolve = require('url').resolve;
+var parse = require('url').parse;
 
 module.exports = function (u, cb) {
-    var uri = resolve(window.location.href, u);
+    var uri = parse(u).protocol ? u : resolve(window.location.href, u);
     
     var stream = new Stream;
     stream.readable = true;
