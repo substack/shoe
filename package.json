@@ -1,25 +1,27 @@
 {
-    "name" : "shoe",
-    "version" : "0.0.15",
-    "description" : "streaming sockjs for node and the browser",
-    "main" : "index.js",
-    "browserify" : "browser.js",
-    "directories" : {
-        "example" : "example"
+    "name": "shoe",
+    "version": "0.0.15",
+    "description": "streaming sockjs for node and the browser",
+    "main": "index.js",
+    "browserify": "browser.js",
+    "directories": {
+        "example": "example"
     },
-    "dependencies" : {
-        "sockjs" : "0.3.7"
+    "dependencies": {
+        "sockjs": "^0.3.19"
     },
-    "bundledDependencies" : [ "sockjs-client" ],
-    "devDependencies" : {
-        "through": "~2.3.4",
-        "tape": "~1.0.4",
-        "testling": "~1.4.1"
+    "bundledDependencies": [
+        "sockjs-client"
+    ],
+    "devDependencies": {
+        "tape": "^4.9.1",
+        "testling": "^1.7.1",
+        "through": "~2.3.4"
     },
     "scripts": {
-        "test": "testling ."
+        "test": "testling . -u"
     },
-    "testling" : {
+    "testling": {
         "files": "test/browser.js",
         "server": "test/server.js",
         "browsers": [
@@ -33,22 +35,24 @@
             "android/latest"
         ]
     },
-    "repository" : {
-        "type" : "git",
-        "url" : "git://github.com/substack/shoe.git"
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/substack/shoe.git"
     },
-    "homepage" : "https://github.com/substack/shoe",
-    "keywords" : [
+    "homepage": "https://github.com/substack/shoe",
+    "keywords": [
         "websocket",
         "stream",
         "sock",
         "browserify"
     ],
-    "author" : {
-        "name" : "James Halliday",
-        "email" : "mail@substack.net",
-        "url" : "http://substack.net"
+    "author": {
+        "name": "James Halliday",
+        "email": "mail@substack.net",
+        "url": "http://substack.net"
     },
-    "license" : "MIT",
-    "engine" : { "node" : ">=0.6" }
+    "license": "MIT",
+    "engine": {
+        "node": ">=0.6"
+    }
 }
