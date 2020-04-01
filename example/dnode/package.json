@@ -3,7 +3,7 @@
     "version" : "0.0.0",
     "dependencies" : {
         "browserify" : "~1.13.0",
-        "ecstatic" : "~0.1.6",
+        "ecstatic" : "~4.1.2",
         "dnode" : "~1.0.1"
     },
     "private" : true
